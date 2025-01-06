@@ -4,14 +4,22 @@ Modified Elastic stack Docker Compose file to stand up a single node cluster wit
 
 ## Usage
 
-I use `direnv` to set up environment variables. To set up the local environment for the first time, run this command and modify the values in the `.envrc` file (or not):
+0. I use `direnv` to set up environment variables. To set up the local environment for the first time, run this command and modify the values in the `.envrc` file (or not):
 
 ```sh
 cp example.envrc .envrc
 direnv allow
 ```
 
-Log in using the `elastic` username and the `ELASTIC_PASSWORD` set up in the `.envrc` file.
+1. Start the containers with:
+
+```sh
+docker compose up -d
+```
+
+2. Navigate to `https://localhost:5601`
+
+3. Log in using the `elastic` username and the `ELASTIC_PASSWORD` set up in the `.envrc` file.
 
 ## Fix the fleet-server
 
