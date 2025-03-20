@@ -1,4 +1,7 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
 ---
+name: local-elastic
+
 volumes:
   certs:
     driver: local
@@ -12,7 +15,7 @@ volumes:
 networks:
   default:
     name: local-elastic
-    external: false
+    driver: bridge
 
 services:
   setup:
@@ -84,6 +87,8 @@ services:
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - es_data:/usr/share/elasticsearch/data
+    networks:
+      - default
     ports:
       - ${ES_PORT}:9200
     environment:
@@ -130,6 +135,8 @@ services:
       - certs:/usr/share/kibana/config/certs
       - kibana_data:/usr/share/kibana/data
       - ./kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    networks:
+      - default
     ports:
       - ${KIBANA_PORT}:5601
     environment:
@@ -177,6 +184,8 @@ services:
       # - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       # - /proc:/hostfs/proc:ro
       # - /:/hostfs:ro
+    networks:
+      - default
     ports:
       - ${FLEET_PORT}:8220
       - ${APMSERVER_PORT}:8200
